@@ -1,10 +1,6 @@
 require("../../config/config");
 const Products = require("../../models/products");
 
-// Constants
-const ALLOWED_ROLES = ["user", "admin"];
-
-
 // [GET] /api/v1/products
 const getProducts = async (req, res) => {
     try {
@@ -41,9 +37,10 @@ const getProductById = async (req, res) => {
 
         if (!product) {
             console.log("[warning] Product not found");
-            return res.status(404).json({
-                status: 404,
-                message: "Product not found"
+            return res.status(400).json({
+                status: 400,
+                message: "Product not found",
+                data: null
             })
         }
 
@@ -61,7 +58,7 @@ const getProductById = async (req, res) => {
         })
     } catch (error) {
         console.error("[error] Failed to fetch product by id:", error.message);
-        return res.statuss(500).json({
+        return res.status(500).json({
             status: 500,
             message: error.message
         })

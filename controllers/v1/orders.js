@@ -66,13 +66,23 @@ const getOrderByIdProduct = async (req, res) => {
         const product = await Products.findById(id);
         if (!product) {
             console.log("[warning] Product not found");
-            return res.status(404).json({
-                status: 404,
-                message: "Product not found"
+            return res.status(400).json({
+                status: 400,
+                message: "Product not found",
+                data: null
             })
         }
 
         const orders = await Orders.find({ product_id: id });
+
+        if (orders.length === 0) {
+            console.log("[warning] No orders found for this product");
+            return res.status(400).json({
+                status: 400,
+                message: "No orders found for this product",
+                data: null
+            })
+        }
 
         const totalQuantity = orders.reduce((sum, order) => sum + order.quantity, 0);
         const totalPrice = orders.reduce((sum, order) => sum + order.price, 0);
