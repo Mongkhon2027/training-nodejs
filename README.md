@@ -104,11 +104,6 @@ Authorization: Bearer <your-jwt-token>
 
 #### User Management
 ```
-GET /api/v1/users
-รายการผู้ใช้ทั้งหมด
-```
-
-```
 PUT /api/v1/users/:id/approve
 อนุมัติผู้ใช้ (Admin only)
 ```
